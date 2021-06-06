@@ -20,6 +20,18 @@ module.exports = class Collector {
 			clazz.startReceiveBFData();
 		});
 
+		this.client.on('reconnect_error', (error) => {
+			clazz.log(`Reconnect error: ${error}`);
+		});
+
+		this.client.on('error', (error) => {
+			clazz.log(`Error: ${error}`);
+		});
+
+		this.client.on('disconnect', () => {
+			clazz.log("Disconnected");
+		});
+
 		this.client.once("connect", function() {
 			clazz.log("Connected");
 			clazz.startReceiveBFData();
